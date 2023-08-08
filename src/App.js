@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import Meme from "./components/Meme";
 import Joke from "./components/Joke";
 
+// you can use .env.local file to put your API keys
+const rapidApiKey = process.env.REACT_APP_RAPIDAPI_KEY;
+
 function App() {
   const [meme, setMeme] = useState({
     description: null,
@@ -20,40 +23,39 @@ function App() {
 
   // const [jokesData, setJokesData] = useState(initialJokes);
 
-  const [joke, setJoke] = useState(
-    {
-      joke: null,
-    }
-  );
+  const [joke, setJoke] = useState({
+    joke: null,
+  });
 
   //fetching jokes from API
   const fetchJoke = async () => {
     // const randomNumber = Math.floor(Math.random() * 1000); // Generate a random number
-    const url = 'https://humor-jokes-and-memes.p.rapidapi.com/jokes/random?max-length=200&include-tags=one_liner&min-rating=7&exclude-tags=nsfw&keywords=rocket';
+    const url =
+      "https://humor-jokes-and-memes.p.rapidapi.com/jokes/random?max-length=200&include-tags=one_liner&min-rating=7&exclude-tags=nsfw&keywords=rocket";
     const options = {
-    method: 'GET',
-    headers: {
-        'X-RapidAPI-Key': '3d4a96e163mshf67df0a9d9622a5p1ac924jsn1661fbfd7ae9',
-        'X-RapidAPI-Host': 'humor-jokes-and-memes.p.rapidapi.com'
-    }
+      method: "GET",
+      headers: {
+        "X-RapidAPI-Key": rapidApiKey,
+        "X-RapidAPI-Host": "humor-jokes-and-memes.p.rapidapi.com",
+      },
     };
 
     try {
-        const response = await fetch(url, options);
-        const result = await response.json();
-        console.log(result);
-        return result;
+      const response = await fetch(url, options);
+      const result = await response.json();
+      console.log(result);
+      return result;
     } catch (error) {
-        console.error(error);
+      console.error(error);
     }
-  }
+  };
 
   //fetching memes from API
   const fetchMeme = async () => {
     const options = {
       method: "GET",
       headers: {
-        "X-RapidAPI-Key": "3d4a96e163mshf67df0a9d9622a5p1ac924jsn1661fbfd7ae9",
+        "X-RapidAPI-Key": rapidApiKey,
         "X-RapidAPI-Host": "humor-jokes-and-memes.p.rapidapi.com",
       },
     };
